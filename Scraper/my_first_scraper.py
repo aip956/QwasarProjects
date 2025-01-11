@@ -51,7 +51,13 @@ def transform(html_repos):
     return repositories
 
    
-
+# Part 3: Format
+def format(repositories_data):
+    """Formats the repositories data into a CSV string."""
+    csv_lines = ["Developer,Repository Name, Number of Stars"]
+    for repo in repositories_data:
+        csv_lines.append(f"{repo['developer']},{repo['repository_name']},{repo['nbr_stars']}")
+    return "\n".join(csv_lines)
 
 
 if __name__ == "__main__":
@@ -74,6 +80,15 @@ if __name__ == "__main__":
         repositories_data = transform(repo_rows)
         print(f"Number of repos transformed: {len(repositories_data)}")
         print(repositories_data[0])
+
+        # Part 3, Format
+        csv_data = format(repositories_data)
+
+        # Save to a file
+        with open("github_trending.csv", "w") as file:
+            file.write(csv_data)
+        
+        print("CSV data generated successfully!")
 
     except Exception as e:
         print(f"Error: {e}")
