@@ -17,6 +17,41 @@ def extract (page):
     repo_rows = soup.find_all('article', class_='Box-row') #GitHub trending repositories are in 'article' tags with 'Box-row' class
     return repo_rows
 
+# Part 2: Transform
+def transform(html_repos):
+    """ Transforms the HTML repo rows into structured data."""
+    repositories = []
+    for i, repo in enumerate(html_repos):
+        try:
+            dev_repo = repo.find('h1', class_='h3 lh-condensed')
+            print(f"Repo {i} dev_repo: {dev_repo}")
+            developer = dev_repo.text.strip().split('/')[0].strip()
+            repo_name = dev_repo.text.strip().split('/')[1].strip()
+            stars = dev_repo.find('a', class_='Link--muted d-inline-block mr-3')
+            print(f"Repo {i} stars: {stars}")
+            nbr_stars = stars.text.strip().replace(',', '')
+
+            # Append the parsed data
+            repositories.append({
+                'developer': developer,
+                'repository_name': repo_name,
+                'nbr_stars': stars
+            })
+        except AttributeError as e:
+            print(f"Error processing repo {i}: {e}")
+    return repositories
+
+    # for repo in html_repos[:25]: # Top 25 repos
+    #     developer = repo.find('h1', class_='h3 lh-condensed').text.strip().split('/')[0].strip()
+    #     repo_name = repo.find('h1', class_='h3 lh-condensed').text.strip().split('/')[1].strip()
+    #     stars = repo.find('a', class_='Link--muted d-inline-block mr-3').text.strip().replace(',', '')
+    #     repositories.append({
+    #         'developer': developer,
+    #         'repository_name': repo_name,
+    #         'nbr_stars': stars
+    #     })
+    
+
 
 
 if __name__ == "__main__":
@@ -33,7 +68,12 @@ if __name__ == "__main__":
         # Print 1st repo's HTML to validate
         if repo_rows:
             print("First repo HTML:")
-            print(repo_rows[0].prettify()) # Prettifies HTML for easier reading
+            # print(repo_rows[0].prettify()[:500]) # Prettifies HTML for easier reading
+
+        # Part 2, Transform
+        repositories_data = transform(repo_rows)
+        print(f"Number of repos transformed: {len(repositories_data)}")
+        print(repositories_data[0])
 
     except Exception as e:
         print(f"Error: {e}")
