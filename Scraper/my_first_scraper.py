@@ -23,34 +23,34 @@ def transform(html_repos):
     repositories = []
     for i, repo in enumerate(html_repos):
         try:
-            dev_repo = repo.find('h1', class_='h3 lh-condensed')
-            print(f"Repo {i} dev_repo: {dev_repo}")
-            developer = dev_repo.text.strip().split('/')[0].strip()
-            repo_name = dev_repo.text.strip().split('/')[1].strip()
-            stars = dev_repo.find('a', class_='Link--muted d-inline-block mr-3')
-            print(f"Repo {i} stars: {stars}")
+            # Selector for developer and repo name
+            dev_repo = repo.find('h2', class_='h3 lh-condensed').find('a')
+            if not dev_repo:
+                print(f"Repo {i} missing dev/repo link.")
+                continue
+            # Extract developer and repo name
+            repo_link = dev_repo['href']
+            developer = repo_link.split('/')[1]
+            repo_name = repo_link.split('/')[2]
+
+            # Find number of stars
+            stars = repo.find('a', class_='Link Link--muted d-inline-block mr-3')
+            if not stars:
+                print(f"Repo {i} missing stars.")
+                continue
             nbr_stars = stars.text.strip().replace(',', '')
 
             # Append the parsed data
             repositories.append({
                 'developer': developer,
                 'repository_name': repo_name,
-                'nbr_stars': stars
+                'nbr_stars': nbr_stars
             })
         except AttributeError as e:
             print(f"Error processing repo {i}: {e}")
     return repositories
 
-    # for repo in html_repos[:25]: # Top 25 repos
-    #     developer = repo.find('h1', class_='h3 lh-condensed').text.strip().split('/')[0].strip()
-    #     repo_name = repo.find('h1', class_='h3 lh-condensed').text.strip().split('/')[1].strip()
-    #     stars = repo.find('a', class_='Link--muted d-inline-block mr-3').text.strip().replace(',', '')
-    #     repositories.append({
-    #         'developer': developer,
-    #         'repository_name': repo_name,
-    #         'nbr_stars': stars
-    #     })
-    
+   
 
 
 
