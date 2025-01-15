@@ -14,7 +14,7 @@ def request_github_trending(url):
 def extract (page):
     """Extracts the repo rows from the HTML content."""
     soup = BeautifulSoup(page, "html.parser")
-    repo_rows = soup.find_all('article', class_='Box-row') #GitHub trending repositories are in 'article' tags with 'Box-row' class
+    repo_rows = soup.find_all('article', class_='Box-row')[:25] #GitHub trending repositories are in 'article' tags with 'Box-row' class
     return repo_rows
 
 # Part 2: Transform
@@ -56,8 +56,9 @@ def format(repositories_data):
     """Formats the repositories data into a CSV string."""
     csv_lines = ["Developer,Repository Name, Number of Stars"]
     for repo in repositories_data:
-        csv_lines.append(f"{repo['developer']},{repo['repository_name']},{repo['nbr_stars']}")
-    return "\n".join(csv_lines)
+        csv_lines.append(f"{repo['developer']},{repo['repository_name']},{repo['nbr_stars']}\n")
+    print("".join(csv_lines))
+    return "".join(csv_lines)
 
 
 if __name__ == "__main__":
