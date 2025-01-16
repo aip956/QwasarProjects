@@ -22,6 +22,16 @@ class Pixie:
         self.docs = np.array(docs)
         self.store = self.embedder.encode(self.docs)
         return f"Ingested {len(docs)} documents"
+
+    # Perform similarity search
+    def similarity_search(self, query,top_k=3):
+        matches = list()
+        q_embedding = self.embedder.encode(query)
+        top_k_indices = cosine_similarity(self.store, q_embedding, top_k)
+        for i in top_k_indices:
+            matches.append(self.docs[i])
+        return matches
     
-            
+    
+
 
