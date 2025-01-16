@@ -16,5 +16,12 @@ class Pixie:
         self.store: np.ndarray = None # holds our document embeddings as a NumPy array
         self.embedder: SentenceTransformer = embedder # Hold embedding model that we'll use to convert docs and queries to vectors
 
-        
+
+    # Ingesting docs
+    def from_docs(self, docs):
+        self.docs = np.array(docs)
+        self.store = self.embedder.encode(self.docs)
+        return f"Ingested {len(docs)} documents"
+    
+            
 
