@@ -20,16 +20,25 @@ stars, formats the data.)
 4. Format: Converts the extracted data into a CSV frmat and saves it into a file.
 
 ## Installation
-TODO - How to install your project? npm install? make? make re?
+1. Clone the repo or download the project files
+2. Install necessary dependencies
+``` 
+    bash
+    pip install reqeusts beautifulsoup4
+    ```
+3. Ensure that Python 3.x is installed
+
+
+
 
 ## Usage
-TODO - How does it work?
+Run the Python script to fetch trending repos:
 ```
-./my_project argument1 argument2
+python3 my_first_scraper.py 
 ```
 
 ### The Core Team
-
+Anthea Ip
 
 <span><i>Made at <a href='https://qwasar.io'>Qwasar SV -- Software Engineering School</a></i></span>
 <span><img alt='Qwasar SV -- Software Engineering School's Logo' src='https://storage.googleapis.com/qwasar-public/qwasar-logo_50x50.png' width='20px' /></span>
