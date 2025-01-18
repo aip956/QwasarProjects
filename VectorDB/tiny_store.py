@@ -82,7 +82,27 @@ class Pixie:
     # Main loop for querying
     while True:
         query = input("\nAsk anything: ")
+        if len(query) == 0:
+            print("Ask a question to continue . . .")
+            quit()
         
+        if query == "/bye":
+            quit()
 
+        # Search similar matches for query in the embedding store
+        similarities = pixie.similarity_search(query, top_k=5)
+        print(f"query: {query}, top {len(similarities)} matched results:\n")
+
+        print("-" * 5, "Matched Dcouments Start", "-" * 5)
+        for match in similarities:
+            print(f"{match}\n")
+        print("-" * 5, "Matched Documents End", "-" * 5)
+
+        context = ",".join(similarities)
+        answer = generate_answer(prompt=PROMPT.format(context, query))
+        print("\n\nQuestion: {0}\nAnswer: {1}".format(query, answer))
+
+        continue
+    
 
 
