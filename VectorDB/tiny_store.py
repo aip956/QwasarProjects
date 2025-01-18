@@ -57,7 +57,32 @@ class Pixie:
         )
         return response["message"]["content"]
     
-    
+    # Creating an instance of the SentenceTransformer model
+    embedder = SentenceTransformer("all-MiniLM-L6-v2")
+
+    # Reading the space battle text document and ingesting it into Pixie
+    with open("example/spacebattle.txt") as f:
+        content = f.read()
+        ingested = pixie.from_docs(content.split("\n\n"))
+        print(ingested)
+
+    # RAG systems's prompt format
+    PROMPT = """
+    User has asked you the following question and you need to answer it based on the below provided context. 
+    If you don't find any answer in the given context, just say 'I don't have an answer for that'. 
+    In the final answer, do not add "according to the context or as per the context". 
+    You can be creative while using the context to generate the final answer. DO NOT just share the context as it is.
+
+    CONTEXT: {0}
+    QUESTION: {1}
+
+    ANSWER HERE:
+    """
+
+    # Main loop for querying
+    while True:
+        query = input("\nAsk anything: ")
+        
 
 
 
