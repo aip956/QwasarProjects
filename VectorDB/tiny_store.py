@@ -48,6 +48,16 @@ class Pixie:
         top_k_indices = sim[::-1][:top_k]
         return top_k_indices
     
+    # Function for generating an answer using Llama model
+    def generate_answer(prompt):
+        response = ollama.chat(
+            model="llama3",
+            options={"temperature": 0.7},
+            messages=[{"role": "user", "content": prompt}]
+        )
+        return response["message"]["content"]
+    
+    
 
 
 
