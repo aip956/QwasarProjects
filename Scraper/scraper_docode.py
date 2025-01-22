@@ -14,8 +14,9 @@ def request_github_trending(url):
 # Part 1: Extract
 def extract (page):
     """Extracts the repo rows from the HTML content."""
-    soup = BeautifulSoup(page.text, "html.parser")
+    soup = BeautifulSoup(page.content, "html.parser") # .content for raw HTML
     repo_rows = soup.find_all('article', class_='Box-row')[:25] #GitHub trending repositories are in 'article' tags with 'Box-row' class
+    print(f"Number of repos extracted by extract(): {len(repo_rows)}")
     return repo_rows
 
 # Part 2: Transform
@@ -67,7 +68,7 @@ def format(repositories_data):
     csv_lines = ["Developer,Repository Name, Number of Stars"]
     for repo in repositories_data:
         csv_lines.append(f"{repo['developer']},{repo['repository_name']},{repo['nbr_stars']}\n")
-    # print("".join(csv_lines))
+    print("".join(csv_lines))
     return "\n".join(csv_lines)
 
 
@@ -75,23 +76,23 @@ if __name__ == "__main__":
     url = "https://github.com/trending"
 
     # Part 0, Fetch page content
-    page_content = request_github_trending(url).text
-    # print("Request success")
-    # print(page_content[:1000])
+    page_content = request_github_trending(url) # Response object
+    print("Request success")
+    # print(page_content.text[:1000])
 
     # Part 1, Extract
     repo_rows = extract(page_content)
-    # print(f"Number of repos extracted: {len(repo_rows)}")
+    print(f"Number of repos extracted: {len(repo_rows)}")
     # Print 1st repo's HTML to validate
     # if repo_rows:
-        # print("First repo HTML:")
-        # print(repo_rows[0].prettify()[:500]) # Prettifies HTML for easier reading
+    #     print("First repo HTML:")
+    #     print(repo_rows[0].prettify()[:500]) # Prettifies HTML for easier reading
 
     # Part 2, Transform
     
     repositories_data = transform(repo_rows)
-    # print(f"Number of repos transformed: {len(repositories_data)}")
-    # print(repositories_data[0])
+    print(f"Number of repos transformed: {len(repositories_data)}")
+    print(repositories_data[0])
 
     # Part 3, Format
     csv_data = format(repositories_data)

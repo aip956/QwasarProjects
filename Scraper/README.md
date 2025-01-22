@@ -1,5 +1,5 @@
 # Welcome to My First Scraper Ds
-***
+
 
 ## Task
 The task is to create a web scraper that fetches and extracts trending GitHub 
@@ -22,8 +22,7 @@ stars, formats the data.)
 ## Installation
 1. Clone the repo or download the project files
 2. Install necessary dependencies
-``` 
-    bash
+    ``` 
     pip install reqeusts beautifulsoup4
     ```
 3. Ensure that Python 3.x is installed
