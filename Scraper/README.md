@@ -8,7 +8,7 @@ the HTML structure and ensuring that the scraper can handle potential errors
 (e.g. missing data, incorrect elements, or changes to the webpage structure).
 
 ## Description
-This project is a Python=based scarper that extracts information about trending 
+This project is a Python-based scarper that extracts information about trending 
 repositories from GitHub. It fetches the HTML content of the GitHub trending
 age, parses the relevant details about repos ( e.g. developer name, number of 
 stars, formats the data.)

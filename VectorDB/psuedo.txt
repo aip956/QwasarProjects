@@ -1,0 +1,16 @@
+# Psuedocode for vector db
+
+
+1. Initialize; set up data structures and components (KD-Tree,
+LSH buckets, storage for vectors and metadata)
+
+2. Data Preprocessing: Handle normalization for consistent calculations
+
+3. CRUD Operations: Add, Delete, Query methods
+
+4. Indexing: Add indexing for KD-Tree and LSH
+
+5. Querying: Perform similarity search using cosine similarty and apply metadata filtering
+
+
+
