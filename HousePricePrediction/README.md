@@ -1,5 +1,5 @@
 # Welcome to My First Scraper Ds
-
+This project is a predictive modeling pipeline using linear regression to forecast structured data trends. Applied feature engineering, correlation analysis, and model evaluation—demonstrating skills applicable to financial risk modeling, asset price forecasting, and quantitative research.
 
 ## Task
 Build a machine learning model to predict house prices in Boston based on predefined features, using linear regression.
@@ -33,6 +33,7 @@ cd boston-housing-predictor
 jupyter notebook
 ```
 4. Open and execute each cell in the notebook to analyze data and train the model.
+5. Ctrl + c to exit jupyter
 
 ### The Core Team
 Anthea Ip
