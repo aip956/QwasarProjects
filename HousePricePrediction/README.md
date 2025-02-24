@@ -1,4 +1,4 @@
-# Welcome to My First Scraper Ds
+# Welcome to House Price Predictor
 This project is a predictive modeling pipeline using linear regression to forecast structured data trends. Applied feature engineering, correlation analysis, and model evaluation—demonstrating skills applicable to financial risk modeling, asset price forecasting, and quantitative research.
 
 ## Task
