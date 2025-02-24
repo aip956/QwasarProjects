@@ -1,5 +1,5 @@
 # Welcome to My First Scraper Ds
-
+This is a Python-based web scraper to extract and structure unstructured data using BeautifulSoup. Implemented data parsing, error handling, and storage in CSV format—demonstrating skills in financial data extraction, market sentiment analysis, and alternative data processing.
 
 ## Task
 The task is to create a web scraper that fetches and extracts trending GitHub 
