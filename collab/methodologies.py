@@ -29,6 +29,10 @@ print(sorted)
 
 
 # """
+# https://www.geeksforgeeks.org/insertion-sort-algorithm/?ref=lbp
+# https://www.geeksforgeeks.org/bubble-sort-algorithm/?ref=lbp
+# https://www.geeksforgeeks.org/quick-sort-algorithm/?ref=lbp
+# https://www.geeksforgeeks.org/selection-sort-algorithm-2/?ref=lbp
 # Selection Sort
 # Constraints:
 # length of array max(Int); [-9223372036854775808 to 9223372036854775807]
