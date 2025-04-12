@@ -30,7 +30,23 @@ def clean_table_1(csv_str):
     df['firstname'] = df['firstname'].str.strip().str.title()
     df['lastname'] = df['lastname'].str.strip().str.replace('"', '').str.title()
     df['city'] = df['city'].str.strip().str.title()
-    df['country'] = df['country'].str.strip().str.upper()
+    df['country'] = df['country'].replace({
+        'UNITED STATES': 'USA',
+        'UNITED STATES OF AMERICA': 'USA',
+        'United State Of America': 'USA',
+        'U.S.A': 'USA',
+        'U.S.A': 'USA',
+        'US': 'USA',
+        'U.S.': 'USA',
+        'USA': 'USA',
+        '12': None,
+        'NULL': None,
+        'null': None,
+        'NAN': None,
+        'NaN': None
+    })
+    allowed_countries = ['USA']
+    df['country'] = df['country'].where(df['country'].isin(allowed_countries), None)
     df['age'] = pd.to_numeric(df['age'], errors='coerce')
     return df
 
@@ -42,4 +58,4 @@ if __name__ == "__main__":
 
     cleaned_df = clean_table_1(csv_content)
     print("\nCleaned data:")
-    print(cleaned_df.head())
+    print(cleaned_df)
