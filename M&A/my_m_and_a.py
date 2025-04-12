@@ -51,11 +51,58 @@ def clean_table_1(csv_str):
     return df
 
 
+def clean_table_2(csv_str):
+    df = pd.read_csv(io.StringIO(csv_str), sep=';', header=None)
+    df.columns = ['age', 'city', 'gender', 'fullname', 'email']
+    df['gender'] = df['gender'].replace({
+        '0': 'Male', '1':'Female',
+        'M': 'Male', 'F': 'Female' 
+    }).str.title().fillna('Unknown')
+
+    name_parts = df['fullname'].str.replace(r'[\\"]', '', regex=True).str.strip().str.split()
+    df['firstname'] = name_parts.str[0]
+    df['lastname'] = name_parts.str[-1]
+    # Normalize case
+    df['firstname'] = df['firstname'].str.title()
+    df['lastname'] = df['lastname'].str.title()
+    # df['firstname'] = (
+    #     df['firstname']
+    #     .astype(str)
+    #     .str.replace(r'[\\"]', '', regex=True)
+    #     .str.strip()
+    #     .str.title()
+    # )
+        
+    # df['lastname'] = df['fullname'].str.extract(r'(?:["\s]+)([^\s"]+)$')
+    # df['lastname'] = (
+    #     df['lastname']
+    #     .astype(str)
+    #     .str.replace(r'[\\"]', '', regex=True)
+    #     .str.strip()
+    #     .str.title()
+    # )
+    # Fallback if last name missing:
+    missing_last = df['lastname'].isna()
+    df.loc[missing_last, 'lastname'] = df.loc[missing_last, 'fullname'].str.split().str[-1]
+    df['city'] = df['city'].str.strip().str.title()
+    df['country'] = 'USA' #Assume USA
+    df['age'] = df['age'].str.extract(r'(\d+)').astype(float)
+    df = df.drop(columns=['fullname'])
+    return df
+
+
+
+
 if __name__ == "__main__":
     import os
-    with open("only_wood_customer_us_1.csv", "r", encoding="utf-8") as f:
+    # Test CSV 1
+    # with open("only_wood_customer_us_1.csv", "r", encoding="utf-8") as f:
+    #     csv_content = f.read()
+    # Test CSV 2
+    with open("only_wood_customer_us_2.csv", "r", encoding="utf-8") as f:
         csv_content = f.read()
 
-    cleaned_df = clean_table_1(csv_content)
+    # cleaned_df = clean_table_1(csv_content)
+    cleaned_df = clean_table_2(csv_content)
     print("\nCleaned data:")
     print(cleaned_df)
