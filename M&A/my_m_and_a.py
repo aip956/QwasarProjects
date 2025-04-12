@@ -77,15 +77,38 @@ def clean_table_2(csv_str):
 
 
 def clean_table_3(csv_str):
-    df = pd.read_csv(io.StringIO(csv_str))
+    df = pd.read_csv(io.StringIO(csv_str), sep='\t', header=None)
     df.columns = ['gender', 'name', 'email', 'age', 'city', 'country']
 
     df['gender'] = df['gender'].str.replace(r'^.*_', '', regex=True).str.title()
-    df['age'] = df['age'].str.extract(r'(\d+)').astype(float)
+    df['age'] = df['age'].astype(str).str.extract(r'(\d+)').astype(float)
+    #Convert name to string first
+    df['name'] = df['name'].astype(str)
     df['firstname'] = df['name'].str.extract(r'^.*?(\w+)')
     df['lastname'] = df['name'].str.extract(r'\s+([^\s"]+)$')
-    
-
+    df['firstname'] = (
+        df['firstname']
+        .astype(str)
+        .str.replace(r'[\\"]', '', regex=True)
+        .str.strip()
+        .str.title()
+    )
+    df['lastname'] = (
+        df['lastname']
+        .astype(str)
+        .str.replace(r'[\\"]', '', regex=True)
+        .str.strip()
+        .str.title()
+    )
+    df['city'] = df['city'].astype(str).str.replace(r'^.*_', '', regex=True).str.title()
+    df['country'] = df['country'].astype(str).str.replace(r'^.*_', '', regex=True).str.upper().replace({
+        '1': 'USA',
+        'US': 'USA',
+        'Usa': 'USA',
+        'U.S.': 'USA'
+    })
+    df = df.drop(columns=['name'])
+    return df
 
 
 
@@ -95,10 +118,15 @@ if __name__ == "__main__":
     # with open("only_wood_customer_us_1.csv", "r", encoding="utf-8") as f:
     #     csv_content = f.read()
     # Test CSV 2
-    with open("only_wood_customer_us_2.csv", "r", encoding="utf-8") as f:
+    # with open("only_wood_customer_us_2.csv", "r", encoding="utf-8") as f:
+        # csv_content = f.read()
+    # Test CSV 3
+    with open("only_wood_customer_us_3.csv", "r", encoding="utf-8") as f:
         csv_content = f.read()
-
+    print("\nFirst 200 chars: ")
+    print(repr(csv_content[:200]))
     # cleaned_df = clean_table_1(csv_content)
-    cleaned_df = clean_table_2(csv_content)
-    print("\nCleaned data:")
-    print(cleaned_df)
+    # cleaned_df = clean_table_2(csv_content)
+    # cleaned_df = clean_table_3(csv_content)
+    # print("\nCleaned data:")
+    # print(cleaned_df)
