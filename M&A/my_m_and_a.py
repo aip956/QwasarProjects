@@ -65,22 +65,7 @@ def clean_table_2(csv_str):
     # Normalize case
     df['firstname'] = df['firstname'].str.title()
     df['lastname'] = df['lastname'].str.title()
-    # df['firstname'] = (
-    #     df['firstname']
-    #     .astype(str)
-    #     .str.replace(r'[\\"]', '', regex=True)
-    #     .str.strip()
-    #     .str.title()
-    # )
-        
-    # df['lastname'] = df['fullname'].str.extract(r'(?:["\s]+)([^\s"]+)$')
-    # df['lastname'] = (
-    #     df['lastname']
-    #     .astype(str)
-    #     .str.replace(r'[\\"]', '', regex=True)
-    #     .str.strip()
-    #     .str.title()
-    # )
+    
     # Fallback if last name missing:
     missing_last = df['lastname'].isna()
     df.loc[missing_last, 'lastname'] = df.loc[missing_last, 'fullname'].str.split().str[-1]
@@ -89,6 +74,17 @@ def clean_table_2(csv_str):
     df['age'] = df['age'].str.extract(r'(\d+)').astype(float)
     df = df.drop(columns=['fullname'])
     return df
+
+
+def clean_table_3(csv_str):
+    df = pd.read_csv(io.StringIO(csv_str))
+    df.columns = ['gender', 'name', 'email', 'age', 'city', 'country']
+
+    df['gender'] = df['gender'].str.replace(r'^.*_', '', regex=True).str.title()
+    df['age'] = df['age'].str.extract(r'(\d+)').astype(float)
+    df['firstname'] = df['name'].str.extract(r'^.*?(\w+)')
+    df['lastname'] = df['name'].str.extract(r'\s+([^\s"]+)$')
+    
 
 
 
