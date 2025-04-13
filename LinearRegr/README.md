@@ -21,7 +21,22 @@ The steps include:
 
 
 ## Installation
+Python3 and NumPy
+```
+pip install numpy matplotlib
+```
+Clone this repo and drun the Python scripts directly
+
 
 ## Usage
+To train and test the linear regression model using synthetic data:
+```
+python3 linear_regression.py
+```
+To run and visualize gradient descent optimization on a convex function:
+```
+python3 gradient_descent.py
+```
+Make sure to check the plots for model fit and optimizer progression.
 
 ### The Core Team
