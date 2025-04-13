@@ -1,6 +1,10 @@
 import pandas as pd
 import io
-from datetime import datetime
+import os
+# from datetime import datetime
+from my_ds_babel import csv_to_sql
+from my_ds_babel import sql_to_csv
+
 
 def clean_table_1(csv_str):
     #Read CSV
@@ -102,22 +106,43 @@ def clean_name_column(name_series):
     return firstname, lastname
 
 
+def my_m_and_a(csv_str_1, csv_str_2, csv_str_3):
+    df1 = clean_table_1(csv_content1)
+    df1['source'] = 'table_1'
+    df2 = clean_table_2(csv_content2)
+    df2['source'] = 'table_2'
+    df3 = clean_table_3(csv_content3)
+    df3['source'] = 'table_3'
+    return pd.concat([df1, df2, df3], ignore_index=True)
+
+
 
 if __name__ == "__main__":
-    import os
     # Test CSV 1
-    # with open("only_wood_customer_us_1.csv", "r", encoding="utf-8") as f:
-    #     csv_content = f.read()
+    with open("only_wood_customer_us_1.csv", "r", encoding="utf-8") as f:
+        csv_content1 = f.read()
     # Test CSV 2
-    # with open("only_wood_customer_us_2.csv", "r", encoding="utf-8") as f:
-        # csv_content = f.read()
+    with open("only_wood_customer_us_2.csv", "r", encoding="utf-8") as f:
+        csv_content2 = f.read()
     # Test CSV 3
     with open("only_wood_customer_us_3.csv", "r", encoding="utf-8") as f:
-        csv_content = f.read()
-    # print("\nFirst 200 chars: ")
-    # print(repr(csv_content[:200]))
-    # cleaned_df = clean_table_1(csv_content)
-    # cleaned_df = clean_table_2(csv_content)
-    cleaned_df = clean_table_3(csv_content)
-    print("\nCleaned data:")
-    print(cleaned_df)
+        csv_content3 = f.read()
+    
+    merged_df = my_m_and_a(csv_content1, csv_content2, csv_content3)
+    # print("\nCleaned data:")
+    # print(merged_df.head())
+
+    # Convert to CSV format in memory
+    csv_buffer = io.StringIO()
+    merged_df.to_csv(csv_buffer, index=False)
+    csv_buffer.seek(0)
+
+    # Save to SQLite db
+    csv_to_sql(csv_buffer, "plastic_free_boutique.sql", "customers")
+
+    # Check it worked by converting sql to csv
+    csv_output = sql_to_csv("plastic_free_boutique.sql", "customers")
+    print("\nSQL to CSV check: ")
+    lines = csv_output.splitlines()
+    for line in lines[:20000]:
+        print(line)
