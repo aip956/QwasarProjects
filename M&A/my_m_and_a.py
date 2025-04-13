@@ -1,7 +1,7 @@
 import pandas as pd
 import io
 import os
-# from datetime import datetime
+from datetime import datetime
 from my_ds_babel import csv_to_sql
 from my_ds_babel import sql_to_csv
 
@@ -11,7 +11,7 @@ def clean_table_1(csv_str):
     df = pd.read_csv(io.StringIO(csv_str))
 
     #Manually name columns for consistency
-    df.columns = ['gender','firstname','lastname','email','age''city','country']
+    df.columns = ['gender','firstname','lastname','username','email','age', 'city','country']
 
     #Drop username if present
     if 'UserName' in df.columns:
@@ -24,7 +24,7 @@ def clean_table_1(csv_str):
     df['city'] = df['city'].str.strip().str.title()
     df['country'] = normalize_country(df['country'])
     df['age'] = pd.to_numeric(df['age'], errors='coerce')
-    df['created_at'] = None
+    df['created_at'] = pd.Timestamp.today().strftime('%Y-%m-%d')
     df['referral'] = None
     return df
 
@@ -42,7 +42,7 @@ def clean_table_2(csv_str):
     df['city'] = df['city'].str.strip().str.title()
     df['country'] = 'USA' #Assume USA; no country in CSV
     df['age'] = df['age'].str.extract(r'(\d+)').astype(float)
-    df['created_at'] = None
+    df['created_at'] = pd.Timestamp.today().strftime('%Y-%m-%d')
     df['referral'] = None
     return df
 
@@ -61,7 +61,7 @@ def clean_table_3(csv_str):
     df['city'] = df['city'].astype(str).str.replace(r'^.*_', '', regex=True).str.title()
     df['country'] = normalize_country(df['country'])
     df = df.drop(columns=['name'])
-    df['created_at'] = None
+    df['created_at'] = pd.Timestamp.today().strftime('%Y-%m-%d')
     df['referral'] = None
     return df
 
@@ -149,5 +149,5 @@ if __name__ == "__main__":
     csv_output = sql_to_csv("plastic_free_boutique.sql", "customers")
     print("\nSQL to CSV check: ")
     lines = csv_output.splitlines()
-    for line in lines[:20000]:
+    for line in lines[:20]:
         print(line)
