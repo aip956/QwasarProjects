@@ -10,16 +10,8 @@ def clean_table_1(csv_str):
     #Read CSV
     df = pd.read_csv(io.StringIO(csv_str))
 
-    #Rename columns for consistency
-    df = df.rename(columns={
-        'Gender': 'gender',
-        'FirstName': 'firstname',
-        'LastName': 'lastname',
-        'Email': 'email',
-        'Age': 'age',
-        'City': 'city',
-        'Country': 'country',
-    })
+    #Manually name columns for consistency
+    df.columns = ['gender','firstname','lastname','email','age''city','country']
 
     #Drop username if present
     if 'UserName' in df.columns:
@@ -32,24 +24,35 @@ def clean_table_1(csv_str):
     df['city'] = df['city'].str.strip().str.title()
     df['country'] = normalize_country(df['country'])
     df['age'] = pd.to_numeric(df['age'], errors='coerce')
+    df['created_at'] = None
+    df['referral'] = None
     return df
 
 
 def clean_table_2(csv_str):
     df = pd.read_csv(io.StringIO(csv_str), sep=';', header=None)
     df.columns = ['age', 'city', 'gender', 'fullname', 'email']
+    #Drop username if present
+    if 'UserName' in df.columns:
+        df = df.drop(columns=['UserName'])
+
     df['gender'] = normalize_gender(df['gender'])
     df['firstname'], df['lastname'] = clean_name_column(df['fullname'])
     df = df.drop(columns=['fullname'])
     df['city'] = df['city'].str.strip().str.title()
     df['country'] = 'USA' #Assume USA; no country in CSV
     df['age'] = df['age'].str.extract(r'(\d+)').astype(float)
-    
+    df['created_at'] = None
+    df['referral'] = None
     return df
 
 def clean_table_3(csv_str):
     df = pd.read_csv(io.StringIO(csv_str), sep='\t', header=None, skiprows=1)
     df.columns = ['gender', 'name', 'email', 'age', 'city', 'country']
+    #Drop username if present
+    if 'UserName' in df.columns:
+        df = df.drop(columns=['UserName'])
+
     df['gender'] = normalize_gender(df['gender'])
     df['age'] = df['age'].astype(str).str.extract(r'(\d+)').astype(float)
     #Extract names
@@ -58,6 +61,8 @@ def clean_table_3(csv_str):
     df['city'] = df['city'].astype(str).str.replace(r'^.*_', '', regex=True).str.title()
     df['country'] = normalize_country(df['country'])
     df = df.drop(columns=['name'])
+    df['created_at'] = None
+    df['referral'] = None
     return df
 
 def normalize_country(country_series):
