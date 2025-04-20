@@ -7,4 +7,33 @@ def h(x, theta):
 
 # 2. Mean Squared Error
 def mean_squared_error(y_predicted, y_label):
+    error = y_predicted - y_label
+    return (error ** 2).mean()
+
+# 3. Add Bias Column
+def bias_column(X):
+    ones = np.ones((X.shape[0], 1))
+    return np.hstack([ones, X])
+
+# 4. Closed-form Linear Regression
+class LeastSquaresRegression:
+    def __init__(self):
+        self.theta_ = None
     
+    def fit(self, X, y):
+        self.theta_ = np.linalg.inv(X.T @ X) @ X.T @ y
+    
+    def predict(self, X):
+        return h(X, self.theta_)
+    
+# 5. Gradient Descent Optimizer
+class GradientDescentOptimizer:
+    def __init__(self, f, fprime, start, learning_rate = 0.1):
+        self.f_ = f
+        self.fprime_ = fprime
+        self.current_ = start
+        self.learning_rate_ = learning_rate
+        self.history_ = [start.copy()]
+
+    
+        
