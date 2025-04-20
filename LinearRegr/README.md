@@ -8,16 +8,17 @@ The goal is to minimize the Mean Squared Error (MSE) between the data and predic
 
 
 ## Description
-This project demonstrates both analytical and iterative methods to solve a regression problem from scratch using Python and NumPy
+This project walks through building a simple linear regression system without using scikit-learn and other high-level libraries. It includes:
 
-The steps include:
-- Define a linear hypothesis function
+- Define a linear hypothesis function (h(x, θ))
 - Implement a cost function (MSE)
-- Solve for optimial weights (theta) using:
-  - The Normal Equation (Least Squares)
-  - Gradient Descent
-- Visualize model predictions and the gradient descent trajectory
-- Explore the effect of hyperparameters like learning rate and iterations on convergence.
+- Solve for optimial weights (θ) using:
+  - A closed-form solver using the Normal Equation (Least Squares)
+  - An iterative solver using batch Gradient Descent
+- Visualize 
+  - The linear fit to noisy data
+  - The gradient descent trajectory on a convex surface
+
 
 
 ## Installation
