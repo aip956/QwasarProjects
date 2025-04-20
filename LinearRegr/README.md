@@ -30,14 +30,16 @@ Clone this repo and drun the Python scripts directly
 
 
 ## Usage
-To train and test the linear regression model using synthetic data:
+Run the script to train the model and view results:
 ```
-python3 linear_regression.py
+python3 my_linear_regression.py
 ```
-To run and visualize gradient descent optimization on a convex function:
-```
-python3 gradient_descent.py
-```
-Make sure to check the plots for model fit and optimizer progression.
+Plots will be:
+- Linear regression with noisy data
+- Gradient descent progress on a convex cost function
+
 
 ### The Core Team
+Anthea Ip
+- Aspiring data engineer and backend developer exploring ML foundations. 
+- Powered by linear algebra, NumPy, and curiousity
