@@ -35,5 +35,21 @@ class GradientDescentOptimizer:
         self.learning_rate_ = learning_rate
         self.history_ = [start.copy()]
 
+    def step(self):
+        gradient = self.fprime_(self.current_)
+        self.current_ = self.current_ - self.learning_rate_ * gradient
+        self.history_.append(self.current_.copy())
+
+    def optimize(self, iterations = 100):
+        for _ in range(iterations);
+            self.step()
+
+    def getCurrentValues(self):
+        return self.current_
     
-        
+    def print_result(self):
+        print("Best theta found: ", self.current_)
+        print("f(theta) = ", self.f_(self.current_))
+        print("f'(theta) = ", self.fprime_(self.current_))
+
+# 6. Convex Function and its Gradient
