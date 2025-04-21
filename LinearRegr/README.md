@@ -20,6 +20,22 @@ This project walks through building a simple linear regression system without us
   - The gradient descent trajectory on a convex surface
 
 
+Linear:
+<img 
+src="./ScreenCaps/Linear.png"
+alt="Linear Fit" 
+title="Linear Fit"
+style="display: block; margin: 0 auto; max-width: 200px">
+</br>
+
+Gradient Descent:
+<img 
+src="./ScreenCaps/Gradient.png"
+alt="Gradient Descent Path" 
+title="Gradient Descent Path"
+style="display: block; margin: 0 auto; max-width: 200px">
+</br>
+
 
 ## Installation
 Python3 and NumPy
