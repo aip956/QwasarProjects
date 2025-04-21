@@ -77,7 +77,11 @@ def h(x, theta):
 
 
 if __name__ == "__main__":
-    print("Test h(x, theta)")
+    print("Test h(x, theta):")
     x_test = np.array([[1, 2], [1, 3], [1, 4]]) # bias + feature
     theta_test = np.array([[1], [2]]) # theata0 = 1, theta1 = 2
-    
+    expected = np.array([[5], [7],[9]])
+    actual = h(x_test, theta_test)
+    print("Expected: ", expected)
+    print("Actual: ", actual)
+    assert np.allclose(actual, expected), "h(x, theta) failed!"
