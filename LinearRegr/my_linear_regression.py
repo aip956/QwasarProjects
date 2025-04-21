@@ -95,12 +95,19 @@ if __name__ == "__main__":
     # print("Predicted: ", actual_mse)
     # assert np.allclose(actual_mse, expected_mse), "MSE function failed!"
 
-    print("Test bias column:")
-    X_raw = np.array([[0.5], [1.5], [2.5]])
-    expected_bias = np.array([[1.0, 0.5], [1.0, 1.5], [1.0, 2.5]])
-    actual_bias = bias_column(X_raw)
-    print("Expected:\n", expected_bias)
-    print("Predicted:\n", actual_bias)
-    assert np.allclose(actual_bias, expected_bias), "bias_column failed!"
+    print("Test Least Squares Regr:")
+    X_known = np.array([[1], [2], [3]])
+    y_known = np.array([[3], [5], [7]]) # true θ0 = 1, θ1 = 2
 
-    
+    X_known_bias = bias_column(X_known)
+    model = LeastSquaresRegression()
+    model.fit(X_known_bias, y_known)
+    print("Learned Theta:\n", model.theta_)
+    expected_theta = np.array([[1], [2]])
+    assert np.allclose(model.theta_, expected_theta), "Least Squares Regression failed!"
+
+    y_pred_known = model.predict(X_known_bias)
+    print("Predictions:\n", y_pred_known)
+    assert np.allclose(y_pred_known, y_known), "Prediction mismatch!"
+
+
