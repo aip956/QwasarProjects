@@ -5,26 +5,26 @@ import matplotlib.pyplot as plt
 def h(x, theta):
     return x @ theta
 
-# # 2. Mean Squared Error
-# def mean_squared_error(y_predicted, y_label):
-#     error = y_predicted - y_label
-#     return (error ** 2).mean()
+# 2. Mean Squared Error
+def mean_squared_error(y_predicted, y_label):
+    error = y_predicted - y_label
+    return (error ** 2).mean()
 
-# # 3. Add Bias Column
-# def bias_column(X):
-#     ones = np.ones((X.shape[0], 1))
-#     return np.hstack([ones, X])
+# 3. Add Bias Column
+def bias_column(X):
+    ones = np.ones((X.shape[0], 1))
+    return np.hstack([ones, X])
 
-# # 4. Closed-form Linear Regression
-# class LeastSquaresRegression:
-#     def __init__(self):
-#         self.theta_ = None
+# 4. Closed-form Linear Regression
+class LeastSquaresRegression:
+    def __init__(self):
+        self.theta_ = None
     
-#     def fit(self, X, y):
-#         self.theta_ = np.linalg.inv(X.T @ X) @ X.T @ y
+    def fit(self, X, y):
+        self.theta_ = np.linalg.inv(X.T @ X) @ X.T @ y
     
-#     def predict(self, X):
-#         return h(X, self.theta_)
+    def predict(self, X):
+        return h(X, self.theta_)
     
 # # 5. Gradient Descent Optimizer
 # class GradientDescentOptimizer:
@@ -77,11 +77,30 @@ def h(x, theta):
 
 
 if __name__ == "__main__":
-    print("Test h(x, theta):")
-    x_test = np.array([[1, 2], [1, 3], [1, 4]]) # bias + feature
-    theta_test = np.array([[1], [2]]) # theata0 = 1, theta1 = 2
-    expected = np.array([[5], [7],[9]])
-    actual = h(x_test, theta_test)
-    print("Expected: ", expected)
-    print("Actual: ", actual)
-    assert np.allclose(actual, expected), "h(x, theta) failed!"
+    # print("\nTest h(x, theta):")
+    # x_test = np.array([[1, 2], [1, 3], [1, 4]]) # bias + feature
+    # theta_test = np.array([[1], [2]]) # theata0 = 1, theta1 = 2
+    # expected = np.array([[5], [7],[9]])
+    # actual = h(x_test, theta_test)
+    # print("Expected:\n", expected)
+    # print("Actual:\n", actual)
+    # assert np.allclose(actual, expected), "h(x, theta) failed!"
+
+    # print("Test MSE:")
+    # y_pred = np.array([[5], [7], [9]])
+    # y_true = np.array([[5], [6], [10]])
+    # expected_mse = ((0**2 + 1**2 + 1**2) / 3)
+    # actual_mse = mean_squared_error(y_pred, y_true)
+    # print("Expected: ", expected_mse)
+    # print("Predicted: ", actual_mse)
+    # assert np.allclose(actual_mse, expected_mse), "MSE function failed!"
+
+    print("Test bias column:")
+    X_raw = np.array([[0.5], [1.5], [2.5]])
+    expected_bias = np.array([[1.0, 0.5], [1.0, 1.5], [1.0, 2.5]])
+    actual_bias = bias_column(X_raw)
+    print("Expected:\n", expected_bias)
+    print("Predicted:\n", actual_bias)
+    assert np.allclose(actual_bias, expected_bias), "bias_column failed!"
+
+    
