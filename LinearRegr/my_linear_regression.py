@@ -26,56 +26,64 @@ class LeastSquaresRegression:
     def predict(self, X):
         return h(X, self.theta_)
     
-# # 5. Gradient Descent Optimizer
-# class GradientDescentOptimizer:
-#     def __init__(self, f, fprime, start, learning_rate = 0.1):
-#         self.f_ = f
-#         self.fprime_ = fprime
-#         self.current_ = start
-#         self.learning_rate_ = learning_rate
-#         self.history_ = [start.copy()]
+# 5. Gradient Descent Optimizer
+class GradientDescentOptimizer:
+    def __init__(self, f, fprime, start, learning_rate = 0.1):
+        self.f_ = f
+        self.fprime_ = fprime
+        self.current_ = start
+        self.learning_rate_ = learning_rate
+        self.history_ = [start.copy()]
 
-#     def step(self):
-#         gradient = self.fprime_(self.current_)
-#         self.current_ = self.current_ - self.learning_rate_ * gradient
-#         self.history_.append(self.current_.copy())
+    def step(self):
+        gradient = self.fprime_(self.current_)
+        self.current_ = self.current_ - self.learning_rate_ * gradient
+        self.history_.append(self.current_.copy())
 
-#     def optimize(self, iterations = 100):
-#         for _ in range(iterations);
-#             self.step()
+    def optimize(self, iterations = 100):
+        for _ in range(iterations):
+            self.step()
 
-#     def getCurrentValues(self):
-#         return self.current_
+    def getCurrentValues(self):
+        return self.current_
     
-#     def print_result(self):
-#         print("Best theta found: ", self.current_)
-#         print("f(theta) = ", self.f_(self.current_))
-#         print("f'(theta) = ", self.fprime_(self.current_))
+    def print_result(self):
+        print("Best theta found: ", self.current_)
+        print("f(theta) = ", self.f_(self.current_))
+        print("f'(theta) = ", self.fprime_(self.current_))
 
-# # 6. Convex Function and its Gradient
-# def f(x):
-#     diff = x - np.array([2, 6])
-#     return 3 + diff.T @ diff
+# 6. Convex Function and its Gradient
+def f(x):
+    diff = x - np.array([2, 6])
+    return 3 + diff.T @ diff
 
-# def fprime(x):
-#     return 2 * (x - np.array([2, 6]))
+def fprime(x):
+    return 2 * (x - np.array([2, 6]))
 
-# # 7. Plotting Helper Functions
-# def my_plot(X, y, y_pred):
-#     plt.scatter(X, y, label = "Data")
-#     plt.plot(X, y_pred, color = 'red', label = "Prediction")
-#     plt.legend()
-#     plt.title("Linear Fit")
-#     plt.show()
+# 7. Plotting Helper Functions
+def my_plot(X, y, y_pred):
+    plt.scatter(X, y, label = "Data")
+    plt.plot(X, y_pred, color = 'red', label = "Prediction")
+    plt.legend()
+    plt.title("Linear Fit")
+    plt.show()
 
-# def plot_3d_and_path(history, f):
-#     from mpl_toolkits.mplot3d import Axes3D
-#     history = np.array(history)
-#     x_vals = np.linspace(0, 4, 100)
-#     y_vals = np.linspace(4, 8, 100)
-#     X_grid, Y_grid = np.meshgrid(x_vals, y_vals)
+def plot_3d_and_path(history, f):
+    from mpl_toolkits.mplot3d import Axes3D
+    history = np.array(history)
+    x_vals = np.linspace(0, 4, 100)
+    y_vals = np.linspace(4, 8, 100)
+    X_grid, Y_grid = np.meshgrid(x_vals, y_vals)
+    Z = np.array([[f(np.array([x, y])) for x in x_vals] for y in y_vals])
 
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection = '3d')
+    ax.plot_surface(X_grid, Y_grid, Z, alpha = 0.6)
+    ax.plot(history[:, 0], history[:, 1], [f(p) for p in history], color = 'red', marker = 'o')
+    ax.set_title("Gradient Descent Path")
+    plt.show()
 
+# 8. Main Program Execution
 if __name__ == "__main__":
     # print("\nTest h(x, theta):")
     # x_test = np.array([[1, 2], [1, 3], [1, 4]]) # bias + feature
@@ -95,19 +103,36 @@ if __name__ == "__main__":
     # print("Predicted: ", actual_mse)
     # assert np.allclose(actual_mse, expected_mse), "MSE function failed!"
 
-    print("Test Least Squares Regr:")
-    X_known = np.array([[1], [2], [3]])
-    y_known = np.array([[3], [5], [7]]) # true θ0 = 1, θ1 = 2
+    # print("Test Least Squares Regr:")
+    # X_known = np.array([[1], [2], [3]])
+    # y_known = np.array([[3], [5], [7]]) # true θ0 = 1, θ1 = 2
 
-    X_known_bias = bias_column(X_known)
+    # X_known_bias = bias_column(X_known)
+    # model = LeastSquaresRegression()
+    # model.fit(X_known_bias, y_known)
+    # print("Learned Theta:\n", model.theta_)
+    # expected_theta = np.array([[1], [2]])
+    # assert np.allclose(model.theta_, expected_theta), "Least Squares Regression failed!"
+
+    # y_pred_known = model.predict(X_known_bias)
+    # print("Predictions:\n", y_pred_known)
+    # assert np.allclose(y_pred_known, y_known), "Prediction mismatch!"
+
+    # Linear Regression Part
+    X = 4 * np.random.rand(100, 1)
+    y = 10 + 2 * X + np.random.randn(100, 1)
+
+    X_bias = bias_column(X)
     model = LeastSquaresRegression()
-    model.fit(X_known_bias, y_known)
-    print("Learned Theta:\n", model.theta_)
-    expected_theta = np.array([[1], [2]])
-    assert np.allclose(model.theta_, expected_theta), "Least Squares Regression failed!"
+    model.fit(X_bias, y)
+    y_pred = model.predict(X_bias)
 
-    y_pred_known = model.predict(X_known_bias)
-    print("Predictions:\n", y_pred_known)
-    assert np.allclose(y_pred_known, y_known), "Prediction mismatch!"
+    print("Learned weights:", model.theta_)
+    my_plot(X, y, y_pred)
 
-
+    # Gradient Descent Part
+    start = np.random.normal(size = (2,))
+    optimizer = GradientDescentOptimizer(f, fprime, start, learning_rate = 0.1)
+    optimizer.optimize(10)
+    optimizer.print_result()
+    plot_3d_and_path(optimizer.history_, f)
