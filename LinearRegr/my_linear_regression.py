@@ -44,7 +44,8 @@ class GradientDescentOptimizer:
         for _ in range(iterations):
             self.step()
 
-    def getCurrentValues(self):
+    # Getter
+    def getCurrentValue(self):
         return self.current_
     
     def print_result(self):
