@@ -71,6 +71,7 @@ def gradient_decent(f, f_prime, start, learning_rate = 0.1, tol = 0.001, max_ite
     print("Gradient Descent reached max iterations: ", iterations)
     return x
     
+# 5. Linear Programming with Simplex
 
 
 
@@ -98,5 +99,7 @@ if __name__ == "__main__":
     
     # Gradient Descent method
     start = -1 #Starting point
-    
+    x_min = gradient_decent(f, f_prime, start, learning_rate=0.01)
+    print("Minimum found by Gradient Descent at x = ", x_min)
+    print("Value of f at that x: ", f(x_min))
     
