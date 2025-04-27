@@ -10,11 +10,11 @@ I solved the problem by implementing several core numerical optimization algorit
 - Bisection method to find the root of the derivative (where slope = 0, i.e. the minimum)
 - Newton-Raphson method for faster root finding using second-order derivative information
 - Gradient Descent to simulate iterative descent towards the minimum
-- Linear programming (Simplex method) to maximize a linear objective function under constraints. Each solution was validated against known optimization results using SciPy's Brent's method.
+- Linear programming (Highs solver) to maximize a linear objective function under constraints. Each solution was validated against known optimization results using SciPy's Brent's method.
 
 Plot:
 <img 
-src="./ScreenCaps/1function_plot.png"
+src="./ScreenCaps/2function_plot.png"
 alt="Linear Fit" 
 title="Linear Fit"
 style="display: block; margin: 0 auto; max-width: 200px">

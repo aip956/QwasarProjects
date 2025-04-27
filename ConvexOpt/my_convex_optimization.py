@@ -76,7 +76,7 @@ def gradient_decent(f, f_prime, start, learning_rate = 0.1, tol = 0.001, max_ite
 def solve_linear_problem(A, b, c):
     # Solve a linear protramming problem of the form maximize c^T x subject to Ax <= b.
     # scipy minimizes, so t maximize we pass -c
-    res = linprog(c, A_ub = A, b_ub = b, method = 'simplex')
+    res = linprog(c, A_ub = A, b_ub = b, method = 'highs')
     if res.success:
         return res.fun, res.x
     else:
@@ -125,5 +125,4 @@ if __name__ == "__main__":
 
     optimal_value, optimal_arg = solve_linear_problem(A, b, c)
     print("Optimal value (max'd z) is: ", -optimal_value) #Flip back to positive
-    print("Optimal x and y values: ", optimal_arg)
-    
+    print("Optimal x and y values: ", [int(val) for val in optimal_arg])
