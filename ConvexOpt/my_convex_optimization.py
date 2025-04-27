@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # 1.Plot a function
-def print_a_function(f, values, save_path = None):
+def print_a_function(f, values, save_path = None, minimum_x = None):
     y = [f(val) for val in values]
     plt.plot(values, y)
     plt.xlabel("x")
@@ -18,6 +18,7 @@ def print_a_function(f, values, save_path = None):
     if save_path:
         plt.savefig(save_path) # Save plot
     plt.show()
+    plt.close()
 
 # 2. Write and Test Bisection Method
 # Method findes where function crosses 0 between 2 points
