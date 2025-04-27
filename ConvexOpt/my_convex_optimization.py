@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy.optimize import linprog
 
 # 1.Plot a function
 def print_a_function(f, values, save_path = None, minimum_x = None):
@@ -72,6 +73,16 @@ def gradient_decent(f, f_prime, start, learning_rate = 0.1, tol = 0.001, max_ite
     return x
     
 # 5. Linear Programming with Simplex
+def solve_linear_problem(A, b, c):
+    # Solve a linear protramming problem of the form maximize c^T x subject to Ax <= b.
+    # scipy minimizes, so t maximize we pass -c
+    res = linprog(c, A_ub = A, b_ub = b, method = 'simplex')
+    if res.success:
+        return res.fun, res.x
+    else:
+        raise ValueError("Simplex optimization failed")
+    
+
 
 
 
@@ -102,4 +113,17 @@ if __name__ == "__main__":
     x_min = gradient_decent(f, f_prime, start, learning_rate=0.01)
     print("Minimum found by Gradient Descent at x = ", x_min)
     print("Value of f at that x: ", f(x_min))
+    
+    # Solve linear programming program
+    A = np.array([
+        [2, 1],
+        [-4, 5],
+        [1, -2]
+    ])
+    b = np.array([10, 8, 3])
+    c = np.array([-1, -2]) #Note negative signs for maximization
+
+    optimal_value, optimal_arg = solve_linear_problem(A, b, c)
+    print("Optimal value (max'd z) is: ", -optimal_value) #Flip back to positive
+    print("Optimal x and y values: ", optimal_arg)
     
