@@ -13,12 +13,24 @@ I solved the problem by implementing several core numerical optimization algorit
 - Linear programming (Simplex method) to maximize a linear objective function under constraints. Each solution was validated against known optimization results using SciPy's Brent's method.
 
 ## Installation
-TODO - How to install your project? npm install? make? make re?
+To run this project, have Python 3 installed and libraries numpy, matplotlib, scipy:
+```
+pip install -r requirements.txt
+```
+
 
 ## Usage
-TODO - How does it work?
+Run the Python file:
 ```
-./my_project argument1 argument2
+python3 my_convex_optimization.py
 ```
+The script will:
+- Plot the function
+- Find and print the minima using different methods
+- Solve the linear programming problem
+- Plot the final minimum found by Brent's method for visual verification
 
 ### The Core Team
+Anthea Ip
+- Aspiring data engineer and backend developer exploring ML foundations. 
+- Powered by convex functions, gradient descent, and curiousity
