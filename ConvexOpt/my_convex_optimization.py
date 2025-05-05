@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.optimize import linprog
+from scipy.optimize import linprog, mini
 
 # 1.Plot a function
 def print_a_function(f, values, save_path = None, minimum_x = None):
