@@ -15,8 +15,8 @@ I solved the problem by implementing several core numerical optimization algorit
 Plot:
 <img 
 src="./ScreenCaps/2function_plot.png"
-alt="Linear Fit" 
-title="Linear Fit"
+alt="Plot of convex function f(x) - (x - 1)^4 + x^2" 
+title="Convex Function Plot"
 style="display: block; margin: 0 auto; max-width: 200px">
 </br>
 
@@ -37,6 +37,15 @@ The script will:
 - Find and print the minima using different methods
 - Solve the linear programming problem
 - Plot the function and mark the minimum for visual verification
+
+## Output, Results, Observations
+<img 
+src="./ScreenCaps/ConvexOutput.png"
+alt="Convex Optimization Output" 
+title="Sample Output"
+style="display: block; margin: 0 auto; max-width: 200px">
+</br>
+The output confirms that all methods (Bisection, Newton-Raphson, Gradient Descent, and Brent's method) converge to the same minimum of the convex function. I talso shows that the linear programming problem is solved correcty using the HiGHS solver.
 
 ### The Core Team
 Anthea Ip

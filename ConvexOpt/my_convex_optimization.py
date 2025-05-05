@@ -95,26 +95,32 @@ if __name__ == "__main__":
     values = np.linspace(-2, 3, 100)
 
     # Find the min first and then test bisection
+    print("Bisection Method:")
     root = find_root_bisection(f_prime, a = -2, b = 2)
     print("Root found by Bisection Method at x = ", root)
     print("Value of fa at that x: ", f(root))
+    print()
 
     # Plot function and mark min
     # print_a_function(f, values, save_path = "2function_plot.png", minimum_x = root)
 
     # Compare to Brent's Method
     res = minimize_scalar(f, method = 'brent')
+    print("Brent's Method:")
     print("Brent's method found minimum at x = ", res.x)
     print("Value of f at that x: ", res.fun)
-
+    print()
 
     # Newton-Raphson method
+    print("Newton-Raphson Method:")
     f_double_prime = lambda x: 12 * (x - 1) ** 2 + 2 # 2nd derrivative of f
     root_newton = find_root_newton_raphson(f_prime, f_double_prime, x0 = -1)
     print("Root found by Newton-Raphson at x = ", root_newton)
     print("Value of f at that x: ", f(root_newton))
+    print()
     
     # Gradient Descent method
+    print("Gradient Descent Method:")
     start = -1 #Starting point
     x_min = gradient_decent(f, f_prime, start, learning_rate=0.01)
     print("Minimum found by Gradient Descent at x = ", x_min)
@@ -130,5 +136,6 @@ if __name__ == "__main__":
     c = np.array([-1, -2]) #Note negative signs for maximization
 
     optimal_value, optimal_arg = solve_linear_problem(A, b, c)
+    print("\nLinear Programming (HiGHS Solver):")
     print("Optimal value (max'd z) is: ", -optimal_value) #Flip back to positive
     print("Optimal x and y values: ", [int(val) for val in optimal_arg])
