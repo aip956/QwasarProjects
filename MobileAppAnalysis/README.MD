@@ -17,23 +17,26 @@ This project explores key metrics from the Google Play Store:
 The analysis is driven by data wrangling, statistical exploration, and visual storytelling using Python (Pandas, Matplotlib, Seaborn). It aims to help product, marketing, and design teams make informed decisions about which app category to target next.
 
 ## Installation
-1. Clone this repo:
+1. Clone this repo and change into the directory:
    ```
     git clone 
    ```
-2. Change into this directory:
+
    ```
     cd
    ```
-3. Set up a Python virtual environment
+2. Set up a Python virtual environment
    ```
     python2 -m venv env
     source env/bin/activate #On Windows: .\env\Scripts\activate
    ```
-4. Install dependencies:
+3. Install dependencies:
    ```
    pip install -r requirements.txt
    ```
+4. Download the dataset from Kaggle:
+   1. https://www.kaggle.com/datasets/lava18/google-play-store-apps
+   2. Place it in the data/ directory
 
 ## Usage
 
