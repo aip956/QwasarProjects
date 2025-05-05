@@ -10,7 +10,7 @@ I solved the problem by implementing several core numerical optimization algorit
 - Bisection method to find the root of the derivative (where slope = 0, i.e. the minimum)
 - Newton-Raphson method for faster root finding using second-order derivative information
 - Gradient Descent to simulate iterative descent towards the minimum
-- Linear programming (Highs solver) to maximize a linear objective function under constraints. Each solution was validated against known optimization results using SciPy's Brent's method.
+- Linear programming (Highs solver) to maximize a linear objective function under constraints. Each method was validated by comparing its results to SciPy's minimize-scalar using Brent's method, a robust built-in scalar optimizer. Brent's result served as a benchmark for accuracy.
 
 Plot:
 <img 
@@ -36,7 +36,7 @@ The script will:
 - Plot the function
 - Find and print the minima using different methods
 - Solve the linear programming problem
-- Plot the final minimum found by Brent's method for visual verification
+- Plot the function and mark the minimum for visual verification
 
 ### The Core Team
 Anthea Ip

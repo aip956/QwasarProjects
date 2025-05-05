@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.optimize import linprog, mini
+from scipy.optimize import linprog, minimize_scalar
 
 # 1.Plot a function
 def print_a_function(f, values, save_path = None, minimum_x = None):
@@ -101,6 +101,12 @@ if __name__ == "__main__":
 
     # Plot function and mark min
     # print_a_function(f, values, save_path = "2function_plot.png", minimum_x = root)
+
+    # Compare to Brent's Method
+    res = minimize_scalar(f, method = 'brent')
+    print("Brent's method found minimum at x = ", res.x)
+    print("Value of f at that x: ", res.fun)
+
 
     # Newton-Raphson method
     f_double_prime = lambda x: 12 * (x - 1) ** 2 + 2 # 2nd derrivative of f
