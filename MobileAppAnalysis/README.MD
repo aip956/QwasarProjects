@@ -39,5 +39,24 @@ The analysis is driven by data wrangling, statistical exploration, and visual st
    2. Place it in the data/ directory
 
 ## Usage
+Open the Jupyter Notebook:
+    ```
+    jupyter notebook my_mobapp_analysis.ipynb
+    ```
+
+Functions:
+- load_dataset(): Loads the Google Play Store dataset
+- clean_dataset(): Cleans and normalizes columns (e.g. price, installs)
+- print_summarize_dataset(): Displays high-level summary stats
+- print_histograms(): Visualizes distributions of key variables
+- compute_correlations_matrix(): Plots feature correlations
+- print_scatter_matrix(): Generates scatterplots to explore relationships
+After analysis, check out the blog report linked 
 
 ### The Core Team
+Anthea Ip
+Powered by:
+- Python for data processing and visualization
+- Pandas, Matplotlib, Seaborn for analysis and plotting
+- Jupyter Notebook for experimentation and reporting
+- Me, Junior Data Scientist at My Mobapp Studio!
