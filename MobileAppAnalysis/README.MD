@@ -60,3 +60,6 @@ Powered by:
 - Pandas, Matplotlib, Seaborn for analysis and plotting
 - Jupyter Notebook for experimentation and reporting
 - Me, Junior Data Scientist at My Mobapp Studio!
+
+
+jupyter notebook to open notebook
