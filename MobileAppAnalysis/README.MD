@@ -3,6 +3,12 @@
 ## Task
 The mission is to analyze the Android mobile app market using the "Google Play Store Apps" dataset from Kaggle. This analysis will guide a hypothetical internal decision-making for launching a new mobile app in the Google Play Store.
 - Load and clean the dataset
+  - Rating: Drop rows where Rating > 5
+  - Reviews: Convert to int
+  - Installs: Remove + , and convert to int
+  - Price: Remove $ and convert to float
+  - Size: Convert to numeric
+  - Type, Content Rating, Current Ver, Android Ver: Fill or drop rows with missing values
 - Analyze app popularity, category-wise trends, pricing, and downloads
 - Provide visual insights through plots (histograms, bar charts, pie charts, etc.)
 - Write and publish a scientific-style blog post summarizing the findings
