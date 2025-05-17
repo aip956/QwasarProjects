@@ -1,11 +1,10 @@
-#### Welcome to My Arcane App
+# Welcome to My Arcane App
 
-###
-Task
+## Task
 Build a Retrieval-Augmented Generation (RAG) API that connects to a local or cloud-based language model, retrieves relevant context from a small document set, and uses that context to generate more accurate answers to user questions.
 
 
-Description
+## Description
 This project addresses a core limitation of LLMs: their inability to access specific or up-to-date external knowledge. A RAG system resolves this by:
 
 Receiving a question through an API.
@@ -18,7 +17,7 @@ Returning the generated answer to the user via the API.
 
 The app is built using FastAPI, integrates with a vector store (FAISS or ChromaDB), and connects to either OpenAI’s GPT-4 or a local LLaMA 2 instance. It includes basic API key security and simple logging. The goal is a functional, maintainable, and secure RAG prototype.
 
-Installation
+## Installation
 Clone the repository:
 
 bash
@@ -83,7 +82,9 @@ Edit
 curl -X POST http://localhost:8000/ask \
   -H "Content-Type: application/json" \
   -d '{"question": "What is LangChain?", "api_key": "your-custom-secret"}'
-The Core Team
+
+
+## The Core Team
 <span><i>Made at <a href='https://qwasar.io'>Qwasar SV -- Software Engineering School</a></i></span>
 <span><img alt='Qwasar SV -- Software Engineering School's Logo' src='https://storage.googleapis.com/qwasar-public/qwasar-logo_50x50.png' width='20px' /></span>
 <br>
