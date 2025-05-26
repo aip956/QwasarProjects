@@ -1,6 +1,6 @@
-fastaip
+fastapi
 uvicorn
-openai
 python-dotenv
 faiss-cpu
 tiktoken
+requests
