@@ -1,0 +1,1 @@
+echo "Retrieval-Augmented Generation is a technique where..." > documents/rag_intro.txt
