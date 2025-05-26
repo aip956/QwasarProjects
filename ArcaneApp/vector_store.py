@@ -9,7 +9,7 @@ class VectorStore:
 
 
     def add(self, embeddings, texts):
-        seflindex.add(nparray(embeddings).astype("float32"))
+        self.index.add(np.array(embeddings).astype("float32"))
         self.texts.extend(texts)
         
     def search(self, query_embedding, k=5):
