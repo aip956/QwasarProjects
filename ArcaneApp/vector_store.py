@@ -17,7 +17,7 @@ class VectorStore:
         return [self.texts[i] for i in I[0]]
     
     def save(self):
-        faiss.write_index(self.index, "fiass.index")
+        faiss.write_index(self.index, "faiss.index")
         with open("texts.pkl", "wb") as f:
             pickle.dump(self.texts, f)
 

@@ -25,27 +25,3 @@ def answer_question(question, store):
     return "\n".join(top_chunks)
 
 
-
-
-    """
-    Build a vector store from text documents in the specified folder.
-    
-    Args:
-        folder_path (str): The path to the folder containing text files.
-        dim (int): The dimension of the embeddings.
-        
-    Returns:
-        VectorStore: An instance of VectorStore containing the embeddings and texts.
-    """
-    documents = load_documents(folder_path)
-    vector_store = VectorStore(dim)
-    
-    embeddings = []
-    for text in documents:
-        embedding = get_embedding(text)
-        embeddings.append(embedding)
-    
-    vector_store.add(embeddings, documents)
-    vector_store.save()
-    
-    return vector_store

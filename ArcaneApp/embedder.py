@@ -1,8 +1,19 @@
 import requests
 
-def get_embedding(text, model="nomic-embed-text"):
-    response = requests.post("http://localhost:11434/api/embddings", json={
 
+def warm_up_model(model="nomic-embed-text"):
+    """
+    Ensure the model is loaded before using it.
+    """
+    requests.post("http://localhost:11434/api/pull",json={
+        "name": model
+    })
+
+def get_embedding(text, model="nomic-embed-text"):
+    warm_up_model(model)
+    response = requests.post("http://localhost:11434/api/embeddings", json={
+        "model": model,
+        "text": text
     })
 
     # Validate the response
