@@ -4,7 +4,7 @@ def ask_local_llm(prompt: str):
     response = requests.post(
         "http://localhost:11434/api/generate",
         json={
-            "model": "llama3:2:latest",
+            "model": "llama3.2:latest",
             "prompt": prompt,
             "stream": False
         }

@@ -1,1 +1,2 @@
-echo "Retrieval-Augmented Generation is a technique where..." > documents/rag_intro.txt
+
+Retrieval-Augmented Generation (RAG) is an architecture that combines language models with document retrieval. At query time, relevant chunks are fetched from a knowledge base using semantic search and injected into the prompt to improve factual accuracy.

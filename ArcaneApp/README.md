@@ -90,3 +90,15 @@ curl -X POST http://localhost:8000/ask \
 <br>
 <span><i>Powered by FastAPI, FAISS/Chroma, and OpenAI or LLaMA 2</i></span>
 
+
+lsof -i :8000
+kill -9 (PID)
+
+uvicorn main:app
+
+curl -X POST http://localhost:8000/ask \
+  -H "Content-Type: application/json" \
+  -d '{
+    "question": "What is retrieval-augmented generation?",
+    "api_key": "llm_secret_key"
+  }'
