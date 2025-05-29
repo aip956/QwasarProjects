@@ -1,7 +1,7 @@
 # Welcome to My Arcane App
 
 ## Task
-Build a Retrieval-Augmented Generation (RAG) API that connects to a local or cloud-based language model, retrieves relevant context from a small document set, and uses that context to generate more accurate answers to user questions.
+Build a Retrieval-Augmented Generation (RAG) API that connects to a local language model, retrieves relevant context from a small document set, and uses that context to generate more accurate answers to user questions.
 
 
 ## Description
