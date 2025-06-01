@@ -17,6 +17,15 @@ Returning the generated answer to the user via the API.
 
 The app is built using FastAPI, integrates with a vector store (FAISS or ChromaDB), and connects to either OpenAI’s GPT-4 or a local LLaMA 2 instance. It includes basic API key security and simple logging. The goal is a functional, maintainable, and secure RAG prototype.
 
+Classes
+build_store.py
+embedder.py
+loader.py
+local_llm.py
+main.py
+rag_engine.py
+vector_store.py
+
 ## Installation
 Clone the repository:
 
