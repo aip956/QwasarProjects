@@ -18,13 +18,59 @@ Returning the generated answer to the user via the API.
 The app is built using FastAPI, integrates with a vector store (FAISS or ChromaDB), and connects to either OpenAI’s GPT-4 or a local LLaMA 2 instance. It includes basic API key security and simple logging. The goal is a functional, maintainable, and secure RAG prototype.
 
 Classes
-build_store.py
-embedder.py
-loader.py
-local_llm.py
+
+
+
 main.py
+- FastAPI web server
+- Defines POST/ask endpoint
+- Accepts a JSON body with a question and api_key
+- Uses the RagEngine to process the questions
+- Returns an answer (or error message)
+- This is the frontend API for the RAG app
 rag_engine.py
+- Core logic of the app; the brain
+- it embeds the quesiton using an embedder
+- Searches for relevant text chunks from FAISS
+- Constructs a prompt using those retrieved texts
+- sends it to the local LLM
+- Returns the model's final answer
+- Combines retrieval and generation
 vector_store.py
+- Handles the FAISS index and test storage
+- Loads and saves the faiss.index (vector store)
+- Loads and saves texts.pkl (raw source text chunks)
+- Provides a .search(query_embedding) method to return relevant documents
+- It's the document memory - optimized for fast vector search
+
+embedder.py
+- Embedding tool
+- Calls Ollama's nomic-embed-text model to turn text into vector embeddings
+- Used for Document chunks (once, during setup)
+- Used for User questions (every time you ask)
+- This makes it possible to compare semantic similarity between text
+
+loader.py
+- A utility script to load documents
+- Loads text files from te documents/ folder
+- Splits each document into managable chunkcs
+Returns a list of those chunks
+- Used during the initial build to prepare text for embedding and storage
+
+build_store.py
+-  Setup script
+- Loads text files (loader.py)
+- Embeds the chunks (embedder.py)
+- Saves teh FAISS index + texts (vector_store.py)
+- Need to run this onec (whenever documents/ changes)
+
+local_llm.py
+- Sends the final prompt to Ollama
+- Taks to locall llama3 model via HTTP
+- Returns the LLM's output text
+- Used by the rag_engine.py to do the generation step
+
+
 
 ## Installation
 Clone the repository:
