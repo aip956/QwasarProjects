@@ -5,7 +5,11 @@ Build a Retrieval-Augmented Generation (RAG) API that connects to a local langua
 
 
 ## Description
-This project addresses a core limitation of LLMs: their inability to access specific or up-to-date external knowledge. A RAG system resolves this by:
+This project addresses a core limitation of LLMs: their inability to access specific or up-to-date external knowledge. 
+
+Imagine you are a company who wants to use an LLM. However, your work is confidential, so you don't want the publically available LLM to be trained on your data. You could obtain an LLM as a foundation, and then augment it with your confidential information. This is fundamentally what a RAG system does.
+
+A RAG system resolves this by:
 
 - Receiving a question through an API.
 - Retrieving relevant context chunks from a vector database of documents.
@@ -69,9 +73,9 @@ Returns a list of those chunks
 2. Rag_engine.py 
 - embeds the question,
 - searches for top relevant docs in FAISS
-- builds a prompt like:
--- Context: [matching document text]
--- Question: [your question]   
+- builds a prompt like:</br>
+```Context: [matching document text]```</br>
+```Question: [your question]```   
 - Sends this prompt to local_llm.py (Ollama)
 3. LLM generates an answer using the retrieved text
 4. main.py returns that answer as the HTTP response
@@ -92,13 +96,12 @@ Edit
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-Add your environment variables in a .env file:
+Add your environment variables in a .env file to make Curl commands:
 
-ini
-Copy
-Edit
-OPENAI_API_KEY=your-api-key
+```
 API_SECRET_KEY=your-custom-secret
+```
+
 Prepare documents:
 
 Place your 50–100 documents in a documents/ folder.
@@ -107,9 +110,6 @@ Run the provided embedding script to generate the vector store.
 
 Run the app:
 
-bash
-Copy
-Edit
 uvicorn main:app --reload
 Usage
 Send a POST request to the /ask endpoint with a JSON body:
@@ -135,13 +135,11 @@ Return a grounded, context-aware answer
 
 You can test it using Postman or curl:
 
-bash
-Copy
-Edit
+```
 curl -X POST http://localhost:8000/ask \
   -H "Content-Type: application/json" \
   -d '{"question": "What is LangChain?", "api_key": "your-custom-secret"}'
-
+```
 
 ## The Core Team
 <span><i>Made at <a href='https://qwasar.io'>Qwasar SV -- Software Engineering School</a></i></span>
