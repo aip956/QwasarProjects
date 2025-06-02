@@ -82,20 +82,22 @@ Returns a list of those chunks
 
 ## Installation
 Clone the repository:
-
-bash
-Copy
-Edit
+```
 git clone https://github.com/your-username/arcane-rag-app.git
 cd arcane-rag-app
+```
+
+
 Install dependencies:
 
-bash
-Copy
-Edit
+
+Create a virtual environment:
+```
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
+```
+
 Add your environment variables in a .env file to make Curl commands:
 
 ```
@@ -113,14 +115,13 @@ Run the app:
 uvicorn main:app --reload
 Usage
 Send a POST request to the /ask endpoint with a JSON body:
-
-json
-Copy
-Edit
+```
 {
   "question": "What is RAG architecture?",
   "api_key": "your-custom-secret"
 }
+```
+
 The API will:
 
 Validate your key
