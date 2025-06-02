@@ -7,28 +7,22 @@ Build a Retrieval-Augmented Generation (RAG) API that connects to a local langua
 ## Description
 This project addresses a core limitation of LLMs: their inability to access specific or up-to-date external knowledge. A RAG system resolves this by:
 
-Receiving a question through an API.
-
-Retrieving relevant context chunks from a vector database of documents.
-
-Sending both the question and retrieved context to an LLM.
-
-Returning the generated answer to the user via the API.
+- Receiving a question through an API.
+- Retrieving relevant context chunks from a vector database of documents.
+- Sending both the question and retrieved context to an LLM.
+- Returning the generated answer to the user via the API.
 
 The app is built using FastAPI, integrates with a vector store (FAISS or ChromaDB), and connects to either OpenAI’s GPT-4 or a local LLaMA 2 instance. It includes basic API key security and simple logging. The goal is a functional, maintainable, and secure RAG prototype.
 
-Classes
-
-
-
-main.py
+### Classes
+#### main.py
 - FastAPI web server
 - Defines POST/ask endpoint
 - Accepts a JSON body with a question and api_key
 - Uses the RagEngine to process the questions
 - Returns an answer (or error message)
 - This is the frontend API for the RAG app
-rag_engine.py
+#### rag_engine.py
 - Core logic of the app; the brain
 - it embeds the quesiton using an embedder
 - Searches for relevant text chunks from FAISS
@@ -36,41 +30,51 @@ rag_engine.py
 - sends it to the local LLM
 - Returns the model's final answer
 - Combines retrieval and generation
-vector_store.py
+#### vector_store.py
 - Handles the FAISS index and test storage
 - Loads and saves the faiss.index (vector store)
 - Loads and saves texts.pkl (raw source text chunks)
 - Provides a .search(query_embedding) method to return relevant documents
 - It's the document memory - optimized for fast vector search
 
-embedder.py
+#### embedder.py
 - Embedding tool
 - Calls Ollama's nomic-embed-text model to turn text into vector embeddings
 - Used for Document chunks (once, during setup)
 - Used for User questions (every time you ask)
 - This makes it possible to compare semantic similarity between text
 
-loader.py
+#### loader.py
 - A utility script to load documents
 - Loads text files from te documents/ folder
 - Splits each document into managable chunkcs
 Returns a list of those chunks
 - Used during the initial build to prepare text for embedding and storage
 
-build_store.py
+#### build_store.py
 -  Setup script
 - Loads text files (loader.py)
 - Embeds the chunks (embedder.py)
 - Saves teh FAISS index + texts (vector_store.py)
 - Need to run this onec (whenever documents/ changes)
 
-local_llm.py
+#### local_llm.py
 - Sends the final prompt to Ollama
 - Taks to locall llama3 model via HTTP
 - Returns the LLM's output text
 - Used by the rag_engine.py to do the generation step
 
-
+### Runtime Flow
+1. Main calls the rag_engine.ask(. . . )
+2. Rag_engine.py 
+- embeds the question,
+- searches for top relevant docs in FAISS
+- builds a prompt like:
+-- Context: [matching document text]
+-- Question: [your question]   
+- Sends this prompt to local_llm.py (Ollama)
+3. LLM generates an answer using the retrieved text
+4. main.py returns that answer as the HTTP response
 
 ## Installation
 Clone the repository:
