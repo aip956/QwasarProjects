@@ -10,7 +10,7 @@ load_dotenv()
 API_KEY = os.getenv("API_SECRET_KEY")
 
 app = FastAPI()
-store = VectorStore(dim=768)  # Assuming 768 is the embedding dimension
+store = VectorStore(dim=768)  # Calls VectorStore in vector_store.py 
 store.load()  # Load the vector store if it exists
 
 class AskRequest(BaseModel):
@@ -19,11 +19,12 @@ class AskRequest(BaseModel):
 
 
 @app.post("/ask")
-def ask(request: AskRequest):
+# Receive request
+def ask(request: AskRequest): 
     if request.api_key != API_KEY:
         raise HTTPException(status_code=403, detail="Forbidden: Invalid API Key")
     
-    context = answer_question(request.question, store)
+    context = answer_question(request.question, store) # Calles rag_engine to get contex
 
     prompt = f"""You are a helpful assistant. Answer the question using ONLY the context provided below. If the answer is not present, say "I don't know."
 
@@ -33,5 +34,5 @@ Context:
 Question: {request.question}
 """
     
-    answer = ask_local_llm(prompt)
+    answer = ask_local_llm(prompt) # Calls local_llm.py to get the answer from the local LLM 
     return {"answer": answer}

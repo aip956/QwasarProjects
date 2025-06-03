@@ -24,3 +24,13 @@ def load_documents(folder_path="documents"):
 def chunk_text(text, chunk_size=500):
     text = re.sub(r'\s+', ' ', text)  # Normalize whitespace
     return [text[i:i + chunk_size] for i in range(0, len(text), chunk_size)]
+
+# the load_documents will 
+# Look inside the documents folder
+# Read all text files
+# Normalize whitespace
+# Split text into chunks of 500 characters (chunk_text)
+# Return a list of text chunks
+# This function is used in rag_engine.py to load documents for building the vector store.
+# It is also used in main.py to load documents when the app starts.
+# This allows the app to answer questions based on the content of the documents.

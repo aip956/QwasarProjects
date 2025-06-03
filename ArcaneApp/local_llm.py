@@ -23,3 +23,5 @@ def ask_local_llm(prompt: str):
         raise ValueError("LLM failed to generate. Ollama returned: {data}")
     
     return data["response"]
+
+# This is called in main.py to get the answer from the local LLM.
