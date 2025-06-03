@@ -23,50 +23,47 @@ The app is built using
 It also includes a simple API key security and logging. It's a functional, maintainable, and secure RAG prototype.
 
 ### Classes
-#### main.py
-- FastAPI web server
+#### main.py - API layer
+- Defines the FastAPI server
 - Defines POST/ask endpoint
 - Accepts a JSON body with a question and api_key
 - Uses the RagEngine to process the questions
 - Returns an answer (or error message)
 - This is the frontend API for the RAG app
-#### rag_engine.py
-- Core logic of the app; the brain
-- it embeds the quesiton using an embedder
+#### rag_engine.py - Core logic (the brain)
+- It embeds the quesiton
 - Searches for relevant text chunks from FAISS
 - Constructs a prompt using those retrieved texts
-- sends it to the local LLM
+- Sends it to the local LLM
 - Returns the model's final answer
 - Combines retrieval and generation
-#### vector_store.py
+#### vector_store.py - Document memory
 - Handles the FAISS index and test storage
 - Loads and saves the faiss.index (vector store)
 - Loads and saves texts.pkl (raw source text chunks)
 - Provides a .search(query_embedding) method to return relevant documents
 - It's the document memory - optimized for fast vector search
-
-#### embedder.py
-- Embedding tool
+#### embedder.py - Embedding engin
 - Calls Ollama's nomic-embed-text model to turn text into vector embeddings
 - Used for Document chunks (once, during setup)
 - Used for User questions (every time you ask)
 - This makes it possible to compare semantic similarity between text
 
-#### loader.py
+#### loader.py - Document prep
 - A utility script to load documents
 - Loads text files from te documents/ folder
 - Splits each document into managable chunkcs
-Returns a list of those chunks
+- Returns a list of those chunks
 - Used during the initial build to prepare text for embedding and storage
 
-#### build_store.py
--  Setup script
+#### build_store.py - Index setup
+- Setup script
 - Loads text files (loader.py)
 - Embeds the chunks (embedder.py)
-- Saves teh FAISS index + texts (vector_store.py)
-- Need to run this onec (whenever documents/ changes)
+- Saves the FAISS index + texts (vector_store.py)
+- Need to run this once (whenever documents/ changes)
 
-#### local_llm.py
+#### local_llm.py - LLM connector
 - Sends the final prompt to Ollama
 - Taks to locall llama3 model via HTTP
 - Returns the LLM's output text
@@ -93,8 +90,6 @@ cd arcane-rag-app
 
 
 Install dependencies:
-
-
 Create a virtual environment:
 ```
 python3 -m venv venv
@@ -102,43 +97,27 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-Add your environment variables in a .env file to make Curl commands:
+Create a .env file to make Curl commands:
 
 ```
-API_SECRET_KEY=your-custom-secret
+echo "API_SECRET_KEY=your-custom-secret" > .env
 ```
 
-Prepare documents:
+Add documents:
 
-Place your 50–100 documents in a documents/ folder.
-
+Place .txt files into the documents/folder (e.g.documents/birds.txt)
 Run the provided embedding script to generate the vector store.
+```
+python3 build_store.py
+```
 
 Run the app:
-
+```
 uvicorn main:app --reload
-Usage
+```
+
+## Usage
 Send a POST request to the /ask endpoint with a JSON body:
-```
-{
-  "question": "What is RAG architecture?",
-  "api_key": "your-custom-secret"
-}
-```
-
-The API will:
-
-Validate your key
-
-Embed your question
-
-Retrieve top-k relevant document chunks
-
-Send context and question to the LLM
-
-Return a grounded, context-aware answer
-
-You can test it using Postman or curl:
 
 ```
 curl -X POST http://localhost:8000/ask \
@@ -146,21 +125,20 @@ curl -X POST http://localhost:8000/ask \
   -d '{"question": "What is LangChain?", "api_key": "your-custom-secret"}'
 ```
 
+The API will:
+
+- Validate your key
+- Embed your question
+- Retrieve top-k relevant document chunks
+- Send context and question to the LLM
+- Return a grounded, context-aware answer
+
+
+
 ## The Core Team
 <span><i>Made at <a href='https://qwasar.io'>Qwasar SV -- Software Engineering School</a></i></span>
 <span><img alt='Qwasar SV -- Software Engineering School's Logo' src='https://storage.googleapis.com/qwasar-public/qwasar-logo_50x50.png' width='20px' /></span>
 <br>
-<span><i>Powered by FastAPI, FAISS/Chroma, and OpenAI or LLaMA 2</i></span>
+<span><i>Powered by FastAPI, FAISS/Chroma, and llama3.2:latest</i></span>
 
 
-lsof -i :8000
-kill -9 (PID)
-
-uvicorn main:app
-
-curl -X POST http://localhost:8000/ask \
-  -H "Content-Type: application/json" \
-  -d '{
-    "question": "What is retrieval-augmented generation?",
-    "api_key": "llm_secret_key"
-  }'
