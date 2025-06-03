@@ -7,16 +7,20 @@ Build a Retrieval-Augmented Generation (RAG) API that connects to a local langua
 ## Description
 This project addresses a core limitation of LLMs: their inability to access specific or up-to-date external knowledge. 
 
-Imagine you are a company who wants to use an LLM. However, your work is confidential, so you don't want the publically available LLM to be trained on your data. You could obtain an LLM as a foundation, and then augment it with your confidential information. This is fundamentally what a RAG system does.
+Imagine you're a company with confidential data. You want to use a language model, but you can't expose your data to public APIs. With RAG, you use a foundational LLM and augment it with your internal data . . . without retraining.
 
 A RAG system resolves this by:
 
-- Receiving a question through an API.
+- Accepting a question through an API.
 - Retrieving relevant context chunks from a vector database of documents.
 - Sending both the question and retrieved context to an LLM.
 - Returning the generated answer to the user via the API.
 
-The app is built using FastAPI, integrates with a vector store (FAISS or ChromaDB), and connects to either OpenAI’s GPT-4 or a local LLaMA 2 instance. It includes basic API key security and simple logging. The goal is a functional, maintainable, and secure RAG prototype.
+The app is built using 
+- FastAPI for the API
+- FAISS vector database for the vector store
+- Ollama (Llama 3.2)
+It also includes a simple API key security and logging. It's a functional, maintainable, and secure RAG prototype.
 
 ### Classes
 #### main.py
